@@ -1,9 +1,6 @@
 let activeStyle = {
-  color: "black",
+  color: "#61dafb",
   textDecoration: "none",
-  backgroundColor: "white",
-  borderRadius: "5px",
-  padding: "5px",
 };
 let anchorStyle = {
   textDecoration: "none",

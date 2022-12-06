@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: #1b0940;
 }
 .App {
   text-align: center;
@@ -34,7 +35,7 @@
 }
 
 .navbar {
-  background-color: #282c34;
+  background-color: #1b0940;
   color: white;
   padding: 10px;
   display: flex;

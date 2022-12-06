@@ -5,7 +5,7 @@ import ListView from "../components/ListView";
 const Home = () => {
   return (
     <div>
-      <Grid container spacing={2} style={{ marginTop: 5 }}>
+      <Grid container spacing={2} style={{ marginTop: 5, padding: 2 }}>
         <Grid item xs={7}>
           <img
             src="https://images.unsplash.com/photo-1497531551184-06b252e1bee1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"

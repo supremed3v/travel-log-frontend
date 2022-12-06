@@ -41,7 +41,7 @@ const ListView = () => {
             }}
             variant="outlined"
           >
-            <h1>Home</h1>
+            <h1>Location</h1>
             <Carousel
               autoPlay={false}
               navButtonsAlwaysVisible={true}
@@ -73,7 +73,7 @@ const ListView = () => {
             }}
             variant="outlined"
           >
-            <h1>Home</h1>
+            <h1>Location</h1>
             <Carousel
               autoPlay={false}
               navButtonsAlwaysVisible={true}
@@ -105,7 +105,7 @@ const ListView = () => {
             }}
             variant="outlined"
           >
-            <h1>Home</h1>
+            <h1>Location</h1>
             <Carousel
               autoPlay={false}
               navButtonsAlwaysVisible={true}
@@ -137,7 +137,7 @@ const ListView = () => {
             }}
             variant="outlined"
           >
-            <h1>Home</h1>
+            <h1>Location</h1>
             <Carousel
               autoPlay={false}
               navButtonsAlwaysVisible={true}
@@ -169,7 +169,7 @@ const ListView = () => {
             }}
             variant="outlined"
           >
-            <h1>Home</h1>
+            <h1>Location</h1>
             <Carousel
               autoPlay={false}
               navButtonsAlwaysVisible={true}
