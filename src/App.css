@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .App {
   text-align: center;
 }
@@ -28,6 +33,50 @@
   color: #61dafb;
 }
 
+.navbar {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar li {
+  margin-left: 30px !important ;
+  color: white;
+  text-decoration: none !important;
+  padding: 5px;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-left: 20px;
+
+  cursor: pointer;
+}
+
+.navbar .logo:hover {
+  color: #61dafb;
+  cursor: pointer;
+}
+
+.navbar button {
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 40px;
+  font-size: 20px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
