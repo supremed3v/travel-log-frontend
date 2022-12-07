@@ -13,5 +13,8 @@ let logoStyle = {
   textDecoration: "none",
   color: "#61dafb",
 };
+let activeButton = {
+  textDecoration: "none",
+};
 
-export { activeStyle, anchorStyle, logoStyle };
+export { activeStyle, anchorStyle, logoStyle, activeButton };

@@ -1,6 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { activeStyle, anchorStyle, logoStyle } from "../constantStyles";
+import {
+  activeStyle,
+  anchorStyle,
+  logoStyle,
+  activeButton,
+} from "../constantStyles";
 
 const Navbar = () => {
   return (
@@ -24,22 +29,29 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
+            to="/login"
+            style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
+          >
+            Login/Signup
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to="/profile"
             style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
           >
             Profile
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/search"
-            style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
-          >
-            Search
-          </NavLink>
-        </li>
       </ul>
-      <button>+</button>
+      <button>
+        <NavLink
+          to="/add"
+          style={({ isActive }) => (isActive ? activeButton : anchorStyle)}
+        >
+          +
+        </NavLink>
+      </button>
     </div>
   );
 };

@@ -55,6 +55,11 @@
   padding: 5px;
 }
 
+.navbar li:hover {
+  color: "#61dafb" !important;
+  cursor: pointer;
+}
+
 .navbar .logo {
   font-size: 1.5rem;
   font-weight: bold;
