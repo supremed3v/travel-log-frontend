@@ -14,15 +14,20 @@ import makeAnimated from "react-select/animated";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const Add = () => {
   const [formData, setFormData] = useState({
     title: "",
     location: "",
     description: "",
-    costOfTravel: "",
-    travelDate: "",
+    costOfTravel: 0,
+    travelDate: new Date(),
     categories: [],
+    image: [],
+    ratings: 0,
   });
   const [images, setImages] = useState([]);
   const [rating, setRating] = useState(0);
@@ -31,6 +36,7 @@ const Add = () => {
   const [data, setData] = useState([]);
   const [value, setValue] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
 
   const handlePick = (e) => {
     hiddenFileInput.current.click();
@@ -54,10 +60,10 @@ const Add = () => {
   const formSubmit = (e) => {
     setValue(data[0].name);
     setInputValue(data[0].name + ", " + data[0].country.name);
-    formData.location = inputValue;
-    console.log(formData.location);
+    images.forEach((image) => {
+      formData.image.push(image);
+    });
   };
-
   useEffect(() => {
     const searchPlace = () => {
       const options = {
@@ -115,6 +121,13 @@ const Add = () => {
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
+            required
+            error={formData.title.length !== 0 && formData.title.length < 3}
+            helperText={
+              formData.title.length !== 0 && formData.title.length < 3
+                ? "Title must be at least 3 characters"
+                : ""
+            }
           />
         </Grid>
         <Grid item xs={5}>
@@ -126,6 +139,17 @@ const Add = () => {
             value={formData.description}
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
+            }
+            required
+            error={
+              formData.description.length !== 0 &&
+              formData.description.length < 3
+            }
+            helperText={
+              formData.description.length !== 0 &&
+              formData.description.length < 3
+                ? "Description must be at least 3 characters"
+                : ""
             }
           />
         </Grid>
@@ -143,6 +167,15 @@ const Add = () => {
             InputLabelProps={{
               shrink: true,
             }}
+            required
+            error={
+              formData.costOfTravel.length !== 0 && formData.costOfTravel < 0
+            }
+            helperText={
+              formData.costOfTravel.length !== 0 && formData.costOfTravel < 0
+                ? "Cost of travel must be greater than 0"
+                : ""
+            }
           />
         </Grid>
         <Grid item xs={5}>
@@ -152,9 +185,16 @@ const Add = () => {
             value={rating}
             onChange={(event, newRating) => {
               setRating(newRating);
-              console.log(newRating);
+              setFormData({ ...formData, ratings: newRating });
             }}
             sx={{ color: "yellow" }}
+            required
+            error={formData.ratings.length !== 0 && formData.ratings < 0}
+            helperText={
+              formData.ratings.length !== 0 && formData.ratings < 0
+                ? "Rating must be greater than 0"
+                : ""
+            }
           />
         </Grid>
         <Grid item xs={5}>
@@ -169,6 +209,15 @@ const Add = () => {
             ]}
             onChange={(e) => setFormData({ ...formData, categories: e })}
             value={formData.categories}
+            required
+            error={
+              formData.categories.length !== 0 && formData.categories.length < 3
+            }
+            helperText={
+              formData.categories.length !== 0 && formData.categories.length < 3
+                ? "You must select at least 1 Category"
+                : ""
+            }
           />
         </Grid>
         <Grid item xs={5}>
@@ -177,6 +226,12 @@ const Add = () => {
             onClick={handlePick}
             startIcon={<AddPhotoAlternateIcon />}
             sx={{ backgroundColor: "#FC5156" }}
+            error={images.length !== 0 && images.length < 3}
+            helperText={
+              images.length !== 0 && images.length < 3
+                ? "You must select at least 1 image"
+                : ""
+            }
           >
             Add photos
           </Button>
@@ -187,6 +242,7 @@ const Add = () => {
             onChange={imageChange}
             style={{ display: "none" }}
             ref={hiddenFileInput}
+            required
           />
         </Grid>
         <Grid item xs={5}>
@@ -203,7 +259,7 @@ const Add = () => {
             }}
             onChange={(event, newValue) => {
               setValue(newValue);
-              formData.location = newValue;
+              setFormData({ ...formData, location: newValue });
             }}
             renderInput={(params) => (
               <TextField
@@ -213,6 +269,7 @@ const Add = () => {
                   ...params.InputProps,
                 }}
                 variant="outlined"
+                required
               />
             )}
           />
@@ -226,7 +283,7 @@ const Add = () => {
               alt="
             "
               style={{ height: "100px" }}
-              key={index}
+              key={img}
             />
             <div
               style={{
@@ -242,6 +299,12 @@ const Add = () => {
             </div>
           </div>
         ))}
+        <DatePicker
+          selected={startDate}
+          onChange={(date) =>
+            setStartDate(date) && setFormData({ ...formData, startDate: date })
+          }
+        />
       </Grid>
       <div
         style={{

@@ -17,6 +17,7 @@
     "country-state-city": "^3.1.2",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-material-ui-carousel": "^3.4.2",
