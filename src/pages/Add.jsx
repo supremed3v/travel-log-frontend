@@ -8,6 +8,7 @@ import {
   Rating,
   Button,
   Autocomplete,
+  InputLabel,
 } from "@mui/material";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -112,22 +113,32 @@ const Add = () => {
         sx={{ mt: 2 }}
       >
         <Grid item xs={5}>
-          <TextField
-            id="outlined-basic"
-            label="Place you visited"
-            variant="outlined"
-            fullWidth
-            value={formData.title}
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
-            required
-            error={formData.title.length !== 0 && formData.title.length < 3}
-            helperText={
-              formData.title.length !== 0 && formData.title.length < 3
-                ? "Title must be at least 3 characters"
-                : ""
-            }
+          <Autocomplete
+            value={value}
+            freeSolo
+            id="free-solo-2-demo"
+            disableClearable
+            options={data.map(
+              (option) => option.name + ", " + option.country.name
+            )}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+              setFormData({ ...formData, location: newValue });
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Search Location"
+                InputProps={{
+                  ...params.InputProps,
+                }}
+                variant="outlined"
+                required
+              />
+            )}
           />
         </Grid>
         <Grid item xs={5}>
@@ -203,10 +214,16 @@ const Add = () => {
             components={makeAnimated()}
             isMulti
             options={[
-              { value: "chocolate", label: "Chocolate" },
-              { value: "strawberry", label: "Strawberry" },
-              { value: "vanilla", label: "Vanilla" },
+              { value: "Adventure Travel", label: "Adventure Travel" },
+              { value: "Beach Vacation", label: "Beach Vacation" },
+              {
+                value: "Cultural & Theme Tours",
+                label: "Cultural & Theme Tours",
+              },
+              { value: "Family Vacations", label: "Family Vacations" },
+              { value: "Tours & Sightseeing", label: "Tours & Sightseeing" },
             ]}
+            placeholder="Select categories"
             onChange={(e) => setFormData({ ...formData, categories: e })}
             value={formData.categories}
             required
@@ -246,32 +263,13 @@ const Add = () => {
           />
         </Grid>
         <Grid item xs={5}>
-          <Autocomplete
-            value={value}
-            freeSolo
-            id="free-solo-2-demo"
-            disableClearable
-            options={data.map(
-              (option) => option.name + ", " + option.country.name
-            )}
-            onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
-            }}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-              setFormData({ ...formData, location: newValue });
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Search Location"
-                InputProps={{
-                  ...params.InputProps,
-                }}
-                variant="outlined"
-                required
-              />
-            )}
+          <InputLabel>Date you visited</InputLabel>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) =>
+              setStartDate(date) &&
+              setFormData({ ...formData, startDate: date })
+            }
           />
         </Grid>
       </Grid>
@@ -299,12 +297,6 @@ const Add = () => {
             </div>
           </div>
         ))}
-        <DatePicker
-          selected={startDate}
-          onChange={(date) =>
-            setStartDate(date) && setFormData({ ...formData, startDate: date })
-          }
-        />
       </Grid>
       <div
         style={{
