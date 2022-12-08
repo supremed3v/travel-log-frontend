@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import {
   activeStyle,
@@ -6,8 +6,10 @@ import {
   logoStyle,
   activeButton,
 } from "../constantStyles";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { token } = useContext(AuthContext);
   return (
     <div className="navbar">
       <h1 className="logo">
@@ -27,14 +29,25 @@ const Navbar = () => {
             Browse
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/login"
-            style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
-          >
-            Login/Signup
-          </NavLink>
-        </li>
+        {token === null ? (
+          <li>
+            <NavLink
+              to="/login"
+              style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
+            >
+              Login/Signup
+            </NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink
+              to="/logout"
+              style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
+            >
+              Logout
+            </NavLink>
+          </li>
+        )}
         <li>
           <NavLink
             to="/profile"
