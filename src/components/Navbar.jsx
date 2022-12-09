@@ -9,7 +9,8 @@ import {
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { token } = useContext(AuthContext);
+  const { token, Logout } = useContext(AuthContext);
+  console.log(token);
   return (
     <div className="navbar">
       <h1 className="logo">
@@ -43,6 +44,7 @@ const Navbar = () => {
             <NavLink
               to="/logout"
               style={({ isActive }) => (isActive ? activeStyle : anchorStyle)}
+              onClick={() => Logout()}
             >
               Logout
             </NavLink>

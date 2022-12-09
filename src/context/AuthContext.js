@@ -28,15 +28,47 @@ export const AuthContextProvider = (props) => {
       });
   };
 
+  const Logout = () => {
+    setLoading(true);
+    axios.post("http://localhost:5000/api/v1/logout");
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("token");
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    if (token !== null) {
       setToken(token);
     }
   }, []);
 
+  const signUp = (email, password, name) => {
+    setLoading(true);
+    axios
+      .post("http://localhost:5000/api/v1/register", {
+        email,
+        password,
+        name,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data.user);
+        setToken(res.data.token);
+        setLoading(false);
+        localStorage.setItem("token", token);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setError(err);
+      });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, token, Login, error }}>
+    <AuthContext.Provider
+      value={{ user, loading, token, Login, error, Logout, signUp }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

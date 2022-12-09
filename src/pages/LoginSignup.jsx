@@ -21,9 +21,10 @@ function a11yProps(index) {
 }
 
 const LoginSignup = () => {
-  const { Login, loading, user, error } = useContext(AuthContext);
+  const { Login, loading, user, error, signUp } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -36,6 +37,17 @@ const LoginSignup = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     Login(email, password);
+    if (error) {
+      console.log(error);
+    }
+    if (user !== null) {
+      <Navigate to="/" />;
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    signUp(name, email, password);
     if (error) {
       console.log(error);
     }
@@ -109,9 +121,48 @@ const LoginSignup = () => {
               </Box>
             </Container>
           </Box>
-          <Typography value={value} index={1}>
-            Item Two
-          </Typography>
+          <Box value={value} index={1} style={Object.assign({})}>
+            <Container sx={{ mt: 4, mb: 4 }}>
+              <Box sx={{ mb: 1 }}>
+                <Typography variant="h4">Signup</Typography>
+              </Box>
+              <TextField
+                sx={{ width: "100%", mb: 2 }}
+                placeholder="Enter your name"
+                type="text"
+                variant="outlined"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                sx={{ width: "100%", mb: 2 }}
+                placeholder="Email"
+                type="email"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                sx={{ width: "100%", mb: 2 }}
+                placeholder="Password"
+                type="password"
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Button variant="contained" onClick={handleSignUp}>
+                  Signup
+                </Button>
+              </Box>
+            </Container>
+          </Box>
         </SwipeableViews>
       </Box>
     </div>
