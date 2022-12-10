@@ -1,8 +1,24 @@
 import { Typography, Grid, Button } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import ListView from "../components/ListView";
+import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
+  const { user } = useContext(AuthContext);
+
+  if (user !== null) {
+    const getUserPost = async (id) => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/v1/find/${id}`);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserPost(user._id);
+  }
+
   return (
     <div>
       <Grid container spacing={2} style={{ marginTop: 5, padding: 2 }}>

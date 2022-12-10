@@ -18,8 +18,6 @@ export const AuthContextProvider = (props) => {
         setUser(res.data.user);
         setToken(res.data.token);
         setLoading(false);
-
-        localStorage.setItem("token", token);
       })
       .catch((err) => {
         console.log(err);
@@ -33,15 +31,7 @@ export const AuthContextProvider = (props) => {
     axios.post("http://localhost:5000/api/v1/logout");
     setUser(null);
     setToken(null);
-    localStorage.removeItem("token");
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      setToken(token);
-    }
-  }, []);
 
   const signUp = (email, password, name) => {
     setLoading(true);
@@ -56,7 +46,6 @@ export const AuthContextProvider = (props) => {
         setUser(res.data.user);
         setToken(res.data.token);
         setLoading(false);
-        localStorage.setItem("token", token);
       })
       .catch((err) => {
         console.log(err);

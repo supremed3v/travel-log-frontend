@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Add from "./pages/Add";
 import LoginSignup from "./pages/LoginSignup";
 import { AuthContextProvider } from "./context/AuthContext";
+import { PostContextProvider } from "./context/PostContext";
 
 function App() {
   let routes = useRoutes([
@@ -19,10 +20,12 @@ const AppWrapper = () => {
   return (
     <>
       <AuthContextProvider>
-        <Router>
-          <Navbar />
-          <App />
-        </Router>
+        <PostContextProvider>
+          <Router>
+            <Navbar />
+            <App />
+          </Router>
+        </PostContextProvider>
       </AuthContextProvider>
     </>
   );

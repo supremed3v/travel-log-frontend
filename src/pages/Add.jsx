@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   Divider,
   Container,
@@ -16,10 +16,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import axios from "axios";
 import DatePicker from "react-datepicker";
+import { PostContext } from "../context/PostContext";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { AuthContext } from "../context/AuthContext";
 
 const Add = () => {
+  const { createPost, loading, userPosts } = useContext(PostContext);
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -27,10 +31,11 @@ const Add = () => {
     costOfTravel: 0,
     travelDate: new Date(),
     categories: [],
-    image: [],
+    images: [],
     ratings: 0,
+    user: user._id,
   });
-  const [images, setImages] = useState([]);
+  const [image, setImage] = useState([]);
   const [rating, setRating] = useState(0);
   const [imagePreview, setImagePreview] = useState([]);
   const hiddenFileInput = useRef(null);
@@ -45,14 +50,14 @@ const Add = () => {
 
   const imageChange = (e) => {
     const files = Array.from(e.target.files);
-    setImages([]);
+    setImage([]);
     setImagePreview([]);
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
           setImagePreview((prevArray) => [...prevArray, reader.result]);
-          setImages((prevArray) => [...prevArray, reader.result]);
+          setImage((prevArray) => [...prevArray, reader.result]);
         }
       };
       reader.readAsDataURL(file);
@@ -61,9 +66,10 @@ const Add = () => {
   const formSubmit = (e) => {
     setValue(data[0].name);
     setInputValue(data[0].name + ", " + data[0].country.name);
-    images.forEach((image) => {
-      formData.image.push(image);
+    image.forEach((image) => {
+      formData.images.push(image);
     });
+    createPost(formData);
   };
   useEffect(() => {
     const searchPlace = () => {
@@ -89,11 +95,15 @@ const Add = () => {
   }, [inputValue]);
 
   const deleteImage = (index) => {
-    const newImages = images.filter((image, i) => i !== index);
+    const newImages = image.filter((image, i) => i !== index);
     const newImagePreview = imagePreview.filter((image, i) => i !== index);
-    setImages(newImages);
+    setImage(newImages);
     setImagePreview(newImagePreview);
   };
+  console.log(userPosts);
+
+  if (loading) return <h1>Loading...</h1>;
+
   return (
     <Container
       fixed
@@ -243,9 +253,9 @@ const Add = () => {
             onClick={handlePick}
             startIcon={<AddPhotoAlternateIcon />}
             sx={{ backgroundColor: "#FC5156" }}
-            error={images.length !== 0 && images.length < 3}
+            error={image.length !== 0 && image.length < 3}
             helperText={
-              images.length !== 0 && images.length < 3
+              image.length !== 0 && image.length < 3
                 ? "You must select at least 1 image"
                 : ""
             }
