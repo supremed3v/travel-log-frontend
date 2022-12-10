@@ -284,29 +284,32 @@ const Add = () => {
         </Grid>
       </Grid>
       <Grid container>
-        {imagePreview.map((img, index) => (
-          <div>
-            <img
-              src={img}
-              alt="
+        <div>
+          {imagePreview.map((img, index) => (
+            <>
+              <img
+                src={img}
+                alt="
             "
-              style={{ height: "100px" }}
-              key={img}
-            />
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 50,
-                height: 10,
-                marginLeft: 20,
-              }}
-            >
-              <DeleteIcon onClick={() => deleteImage(index)} />
-            </div>
-          </div>
-        ))}
+                style={{ height: "100px" }}
+                key={img}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 50,
+                  height: 10,
+                  marginLeft: 20,
+                }}
+                key={img}
+              >
+                <DeleteIcon onClick={() => deleteImage(index)} />
+              </div>
+            </>
+          ))}
+        </div>
       </Grid>
       <div
         style={{

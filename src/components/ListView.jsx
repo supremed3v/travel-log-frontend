@@ -1,198 +1,59 @@
 import React from "react";
-import { Card, Grid, Typography } from "@mui/material";
+import { Card, Divider, Grid, Rating, Typography } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
+import { Link } from "react-router-dom";
 
-const ListView = () => {
-  let images = [
-    "https://source.unsplash.com/random/200x200?sig=1",
-    "https://source.unsplash.com/random/200x200?sig=2",
-    "https://source.unsplash.com/random/200x200?sig=3",
-    "https://source.unsplash.com/random/200x200?sig=4",
-  ];
+const ListView = ({ post }) => {
+  const options = {
+    value: post.rating,
+    precision: 0.5,
+    readOnly: true,
+  };
   return (
-    <>
-      <Typography
-        variant="h3"
-        style={{
-          width: 700,
-          color: "#1B0940",
-          fontWeight: "bold",
-          marginLeft: 10,
-          padding: "2rem",
-        }}
-      >
-        Discover the touch of nature!
-      </Typography>
+    <Link style={{ textDecoration: "none" }} to={`/travel-log/${post._id}`}>
       <Grid
-        container
-        spacing={{ xs: 2, md: 4 }}
-        columns={{ xs: 6, sm: 8, md: 16 }}
+        item
+        xs={2}
+        sm={4}
+        md={4}
         sx={{
-          padding: 2,
+          ml: 2,
         }}
       >
-        <Grid item xs={2} sm={4} md={4}>
-          <Card
-            sx={{
-              boxShadow: 1,
-              borderRadius: 2,
-              p: 2,
-              minWidth: 200,
-            }}
-            variant="outlined"
+        <Card
+          sx={{
+            boxShadow: 1,
+            borderRadius: 2,
+            p: 2,
+            minWidth: 200,
+          }}
+          variant="outlined"
+        >
+          <Typography variant="h4">{post.location}</Typography>
+          <Divider />
+          <Carousel
+            autoPlay={false}
+            navButtonsAlwaysVisible={true}
+            indicators={false}
+            animation="slide"
+            duration={700}
           >
-            <h1>Location</h1>
-            <Carousel
-              autoPlay={false}
-              navButtonsAlwaysVisible={true}
-              indicators={false}
-              animation="slide"
-              duration={700}
-            >
-              {images.map((image) => (
-                <img
-                  src={image}
-                  alt="example"
-                  style={{
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  key={image}
-                />
-              ))}
-            </Carousel>
-          </Card>
-        </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Card
-            sx={{
-              boxShadow: 1,
-              borderRadius: 2,
-              p: 2,
-              minWidth: 300,
-            }}
-            variant="outlined"
-          >
-            <h1>Location</h1>
-            <Carousel
-              autoPlay={false}
-              navButtonsAlwaysVisible={true}
-              indicators={false}
-              animation="slide"
-              duration={700}
-            >
-              {images.map((image) => (
-                <img
-                  src={image}
-                  alt="example"
-                  style={{
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  key={image}
-                />
-              ))}
-            </Carousel>
-          </Card>
-        </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Card
-            sx={{
-              boxShadow: 1,
-              borderRadius: 2,
-              p: 2,
-              minWidth: 300,
-            }}
-            variant="outlined"
-          >
-            <h1>Location</h1>
-            <Carousel
-              autoPlay={false}
-              navButtonsAlwaysVisible={true}
-              indicators={false}
-              animation="slide"
-              duration={700}
-            >
-              {images.map((image) => (
-                <img
-                  src={image}
-                  alt="example"
-                  style={{
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  key={image}
-                />
-              ))}
-            </Carousel>
-          </Card>
-        </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Card
-            sx={{
-              boxShadow: 1,
-              borderRadius: 2,
-              p: 2,
-              minWidth: 300,
-            }}
-            variant="outlined"
-          >
-            <h1>Location</h1>
-            <Carousel
-              autoPlay={false}
-              navButtonsAlwaysVisible={true}
-              indicators={false}
-              animation="slide"
-              duration={700}
-            >
-              {images.map((image) => (
-                <img
-                  src={image}
-                  alt="example"
-                  style={{
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  key={image}
-                />
-              ))}
-            </Carousel>
-          </Card>
-        </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Card
-            sx={{
-              boxShadow: 1,
-              borderRadius: 2,
-              p: 2,
-              minWidth: 300,
-            }}
-            variant="outlined"
-          >
-            <h1>Location</h1>
-            <Carousel
-              autoPlay={false}
-              navButtonsAlwaysVisible={true}
-              indicators={false}
-              animation="slide"
-              duration={700}
-            >
-              {images.map((image) => (
-                <img
-                  src={image}
-                  alt="example"
-                  style={{
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  key={image}
-                />
-              ))}
-            </Carousel>
-          </Card>
-        </Grid>
+            {post.images.map((image) => (
+              <img
+                src={image.url}
+                alt="example"
+                style={{
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+                key={image}
+              />
+            ))}
+          </Carousel>
+          <Rating {...options} />
+        </Card>
       </Grid>
-    </>
+    </Link>
   );
 };
 

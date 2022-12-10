@@ -1,24 +1,12 @@
 import { Typography, Grid, Button } from "@mui/material";
-import axios from "axios";
 import React, { useContext } from "react";
 import ListView from "../components/ListView";
-import { AuthContext } from "../context/AuthContext";
+import { PostContext } from "../context/PostContext";
 
 const Home = () => {
-  const { user } = useContext(AuthContext);
-
-  if (user !== null) {
-    const getUserPost = async (id) => {
-      try {
-        const res = await axios.get(`http://localhost:5000/api/v1/find/${id}`);
-        console.log(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserPost(user._id);
-  }
-
+  const { userPosts, posts } = useContext(PostContext);
+  console.log(userPosts);
+  console.log(posts);
   return (
     <div>
       <Grid container spacing={2} style={{ marginTop: 5, padding: 2 }}>
@@ -58,7 +46,17 @@ const Home = () => {
           </Button>
         </Grid>
       </Grid>
-      <ListView />
+      <Typography variant="h2">Start finding your next adventure!</Typography>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 4 }}
+        columns={{ xs: 6, sm: 8, md: 16 }}
+        sx={{
+          padding: 2,
+        }}
+      >
+        {posts && posts.map((post) => <ListView post={post} />)}
+      </Grid>
     </div>
   );
 };
