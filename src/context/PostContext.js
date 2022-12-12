@@ -9,7 +9,6 @@ export const PostContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
-  const [postDetails, setPostDetails] = useState([]);
 
   const getAllPost = async () => {
     setLoading(true);
@@ -27,7 +26,7 @@ export const PostContextProvider = (props) => {
     setLoading(true);
     try {
       const res = await axios.post("http://localhost:5000/api/v1/addExp", post);
-      setPosts([...posts, res.data]);
+      setPosts([res.data.travelExperience, ...posts]);
       setLoading(false);
     } catch (err) {
       setError(err);
@@ -35,26 +34,28 @@ export const PostContextProvider = (props) => {
     }
   };
 
-  const getUserPost = async (id) => {
-    if (user !== null) {
-      setLoading(true);
-      try {
-        const res = await axios.get(`http://localhost:5000/api/v1/find/${id}`);
-        setUserPosts(res.data.travelExperiences);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
+  useEffect(() => {
+    const getUserPost = async (id) => {
+      if (user !== null) {
+        setLoading(true);
+        try {
+          const res = await axios.get(
+            `http://localhost:5000/api/v1/find/${id}`
+          );
+          setUserPosts(res.data.travelExperiences);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
       }
-    }
-  };
+    };
+    getUserPost(user?._id);
+  }, []);
 
   useEffect(() => {
-    if (user !== null) {
-      getUserPost(user._id);
-    }
     getAllPost();
-  }, [user]);
+  }, []);
 
   return (
     <PostContext.Provider
@@ -63,6 +64,7 @@ export const PostContextProvider = (props) => {
         loading,
         userPosts,
         createPost,
+        error,
       }}
     >
       {props.children}

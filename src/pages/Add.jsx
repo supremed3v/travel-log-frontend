@@ -70,6 +70,17 @@ const Add = () => {
       formData.images.push(image);
     });
     createPost(formData);
+    setFormData({
+      title: "",
+      location: "",
+      description: "",
+      costOfTravel: 0,
+      travelDate: new Date(),
+      categories: [],
+      images: [],
+      ratings: 0,
+      user: user._id,
+    });
   };
   useEffect(() => {
     const searchPlace = () => {

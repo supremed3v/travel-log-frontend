@@ -8,6 +8,7 @@ import LoginSignup from "./pages/LoginSignup";
 import { AuthContextProvider } from "./context/AuthContext";
 import { PostContextProvider } from "./context/PostContext";
 import ExperienceDetails from "./pages/ExperienceDetails";
+import Profile from "./pages/Profile";
 
 function App() {
   let routes = useRoutes([
@@ -15,6 +16,7 @@ function App() {
     { path: "/add", element: <Add /> },
     { path: "/login", element: <LoginSignup /> },
     { path: "/travel-log/:id", element: <ExperienceDetails /> },
+    { path: "/profile", element: <Profile /> },
   ]);
   return routes;
 }

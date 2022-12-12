@@ -19,10 +19,9 @@ export const AuthContextProvider = (props) => {
         setToken(res.data.token);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
         setLoading(false);
-        setError(err);
+        setError(error.response.data.message);
       });
   };
 

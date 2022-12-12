@@ -17,7 +17,8 @@ const ListView = ({ post }) => {
         sm={4}
         md={4}
         sx={{
-          ml: 2,
+          ml: 1,
+          mt: 2,
         }}
       >
         <Card

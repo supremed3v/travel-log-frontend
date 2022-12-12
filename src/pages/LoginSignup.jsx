@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function a11yProps(index) {
   return {
@@ -27,6 +27,7 @@ const LoginSignup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -42,7 +43,7 @@ const LoginSignup = () => {
       console.log(error);
     }
     if (user !== null) {
-      <Navigate to="/" />;
+      navigate("/");
     }
   };
 
@@ -53,7 +54,7 @@ const LoginSignup = () => {
       console.log(error);
     }
     if (user !== null) {
-      <Navigate to="/" />;
+      navigate("/");
     }
   };
 
@@ -165,6 +166,7 @@ const LoginSignup = () => {
             </Container>
           </Box>
         </SwipeableViews>
+        {error && <h1>{error}</h1>}
       </Box>
     </div>
   );

@@ -4,9 +4,10 @@ import ListView from "../components/ListView";
 import { PostContext } from "../context/PostContext";
 
 const Home = () => {
-  const { userPosts, posts } = useContext(PostContext);
+  const { userPosts, posts, loading } = useContext(PostContext);
   console.log(userPosts);
   console.log(posts);
+  if (loading) return <h1>Loading...</h1>;
   return (
     <div>
       <Grid container spacing={2} style={{ marginTop: 5, padding: 2 }}>
@@ -47,16 +48,19 @@ const Home = () => {
         </Grid>
       </Grid>
       <Typography variant="h2">Start finding your next adventure!</Typography>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 4 }}
-        columns={{ xs: 6, sm: 8, md: 16 }}
-        sx={{
-          padding: 2,
-        }}
-      >
-        {posts && posts.map((post) => <ListView post={post} />)}
-      </Grid>
+      <div style={{ marginTop: 50, marginLeft: 10, paddingLeft: 40 }}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 6 }}
+          columns={{ xs: 6, sm: 8, md: 16 }}
+          sx={{
+            padding: 2,
+            mt: 50,
+          }}
+        >
+          {posts && posts.map((post) => <ListView post={post} />)}
+        </Grid>
+      </div>
     </div>
   );
 };
